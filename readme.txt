@@ -1,5 +1,6 @@
 1.npm install
-2.Á¬½Ó±¾µØmongodbÊı¾İ¿â
-3.¸ü¸Ävue/public ÏÂ index.htmlÖĞËùÓĞµÄipµØÖ·Îª±¾µØµÄ
-4.cdµ½vue ÎÄ¼ş¼Ğ  ÊäÈënpm start
-4.·ÃÎÊlocalhost:3001/static/index.html
+2.è¿æ¥æœ¬åœ°mongodbæ•°æ®åº“ Â å¦‚ï¼ˆmongod --dbpath c:\user\administor\desktop\mongodb-express-vue-nodejs\db --port=27011) Â æŒ‡å®šç«¯å£ä¸º27011
+3.åˆ é™¤dbæ–‡ä»¶å¤¹å†…æ‰€æœ‰æ•°æ®
+3.æ›´æ”¹vue/public ä¸‹ index.htmlä¸­æ‰€æœ‰è¯·æ±‚æ¥å£ä¸­çš„ip æ›¿æ¢ä¸ºä¸ºæœ¬åœ°çš„ip Â ç«¯å£å·ä¸º3001
+4.cdåˆ°vue æ–‡ä»¶å¤¹  è¾“å…¥npm start
+4.è®¿é—®localhost:3001/static/index.html
