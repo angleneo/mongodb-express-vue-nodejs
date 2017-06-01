@@ -203,9 +203,6 @@ new Vue({
 			   this.$http.put('http://192.168.1.125:3001/api/books/'+this.bid,{name:this.bookname1,age:this.authorage1,author:this.name1})
 			     .then(function(response){
 				  	this.init();
-				  	this.bookname1='';
-					this.authorage1='';
-					this.name1='';
 			     })
 		},
 		sear(){
