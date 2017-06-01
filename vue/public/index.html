@@ -171,8 +171,7 @@ new Vue({
 		},
 		sub1(){
 			//提交商品，年龄一定要输入数字
-			if(!!this.bookname1){
-				this.authorage1='0';
+			
 				this.$http.post('http://192.168.1.125:3001/api/books',{name:this.bookname1,age:this.authorage1,author:this.name1}
 					)
 				.then(function(response){
@@ -181,7 +180,7 @@ new Vue({
 					this.authorage1='';
 					this.name1='';
 				})
-			}
+			
 
 		},
 		deleteall(){
