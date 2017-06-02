@@ -39,8 +39,13 @@
 	</div>
        
 		<hr>
-		<div class="form-group">
-			<input type="text" name="" v-model="search" class="form-control search" aria-describedby="sizing-addon3"><button class="btn btn-info search-btn" @click="sear">查询</button>
+		<div class="row">
+			<div class="form-group col-md-3">
+				<input type="text" name="" v-model="search" class="form-control search" aria-describedby="sizing-addon3" placeholder="根据_id查找"><button class="btn btn-primary search-btn" @click="sear">查询</button>
+			</div>
+			<div class="form-group col-md-6">
+				<input type="text" name="" v-model="searchName" class="form-control search" aria-describedby="sizing-addon4" placeholder="根据书名查找"><button class="btn btn-info search-btn" @click="searname">查询</button>
+			</div>
 		</div>
 		
 		<div class="row">
@@ -151,6 +156,7 @@ new Vue({
 			authorage1:'',
 			name1:'',
 			search:'',
+			searchName:'',
 			ok:false,
 			bid:'', //用来传递修改的图书_id
 			username:'',
@@ -251,6 +257,17 @@ new Vue({
 					this.$http.get('http://192.168.1.125:3001/api/books/'+this.search)
 					.then(function(response){
 					 this.books=[response.data];
+			 		})
+			}
+		},
+		searname(){	
+			//根据姓名查找商品
+			if(this.searchName==''){
+					this.init();
+			}else{
+					this.$http.post('http://192.168.1.125:3001/api/books/bookname',{name:this.searchName})
+					.then(function(response){					 	
+					 	this.books=[response.data.booklist];
 			 		})
 			}
 		}

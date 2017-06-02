@@ -3,6 +3,13 @@ var Book = require('../schema/book');
 var mongoose = require('mongoose');
 var router = express.Router();
 
+router.use(function(req,res,next){
+    responseData={
+        code:0,
+        message:''
+    }
+    next();
+})
 
 router.get('/books',function(req,res){
 	Book.find(function(err,books){
@@ -30,13 +37,12 @@ router.post('/books',function(req,res){
 });
 
 
-
 router.get('/books/:book_id',function(req,res){
      Book.findById(req.params.book_id, function(err, book) {
             if (err){
                 res.send(err);
             }else{
-                 res.json(book);
+                res.json(book);
             }
            
         } );
@@ -79,7 +85,34 @@ router.get('/books/:book_id',function(req,res){
              res.json({ message: 'Successfully deleted All!' });
         }
     })
- })
+ });
 
+router.post('/books/bookname',function(req,res){
+    var bookname = req.body.name;
+    //数据库验证 查询相同用户名和密码记录是否存在,如果存在 登录成功
+    Book.findOne({
+       name:bookname
+    }).then(function(booklist){
+        if(!booklist){
+            responseData.code=5;
+            responseData.message='商品为空';
+            res.json(responseData);
+            return;
+        }else{
+                responseData.code=6;
+                responseData.message='商品找到了！';
+                responseData.booklist={
+                    //返回_id，用户名，权限
+                    _id:booklist._id,
+                    name:booklist.name,
+                    age:Number(booklist.age),
+                    author:booklist.author
+                }
+                res.json(responseData);
+                return;
+                }
+    })
+
+})
 
 module.exports = router;
