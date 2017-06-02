@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheets/bootstrap.css">
+	<title>Document</title>
+</head>
+<body>  
+	<div class="container-fluid clearfix" id="app">
+		<div class="login">
+			你好,<span>{{username}}</span>
+			<input type="hidden" name="" v-model="logins">
+		</div>
+	<div class="row">
+		
+		 <div class="form-group">
+            <div class="col-lg-4  text-center">书名</div>
+            <div class="col-lg-8"><input type="text" name="" class="form-control" palceholder="请输入书名" v-model="bookname1"></div>
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <div class="col-lg-4 text-center">作者年龄</div>
+            <div class="col-lg-8"><input type="text" name="" class="form-control" palceholder="请输入年龄" v-model="authorage1"></div>
+        </div>
+      	<br>
+        <br>
+        <div class="form-group">
+            <div class="col-lg-4 text-center">作者姓名</div>
+            <div class="col-lg-8"><input type="text" name="" class="form-control" palceholder="请输入姓名" v-model="name1"></div>
+        </div>
+	 	<br>
+        <br>
+		 <div class="row text-center ">
+			 <button type="button" class="btn btn-primary btn-sm " v-on:click="sub1">提交</button>
+        	 <button type="reset" class="btn btn-danger btn-sm " >重置</button>
+
+		 </div>
+	</div>
+       
+		<hr>
+		<div class="form-group">
+			<input type="text" name="" v-model="search" class="form-control search" aria-describedby="sizing-addon3"><button class="btn btn-info search-btn" @click="sear">查询</button>
+		</div>
+		
+		<div class="row">
+			 <table class="table table-bordered">
+			<tr class="text-center">
+				<th class="text-center">序号</th> 
+				<th class="text-center">书名</th>
+				<th class="text-center">作者年龄</th>
+				<th class="text-center">作者姓名</th>		
+				<th class="text-center">操作</th>
+				<th class="text-center">_id</th>
+			</tr>
+			<tr v-for="(book,item) in books" class="text-center">
+				<td>{{item+1}}</td> 
+				<td>{{book.name}}</td>
+				<td>{{book.age}}</td>
+				<td>{{book.author}}</td>
+				<td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal2" v-on:click="getupdate(book)" v-show="loginshow">编辑</button> <button class="btn btn-danger btn-sm" v-on:click="deleteOne(book)">删除</button></td>
+				<td>{{book._id}}</td>
+			</tr>
+			<tr v-show="ok">
+				<td colspan="6" class="text-center">暂无数据</td>
+			</tr>
+        </table>
+        <div class="row text-center">
+			  <button class="btn btn-danger btn-md"   data-toggle="modal" data-target="#myModal">全部删除</button>
+        </div>
+      
+		</div>
+       	
+       	<!-- 弹出框 -->
+			       	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="myModalLabel">操作</h5>
+					      </div>
+					      <div class="modal-body">
+					     		<h4>确认删除吗？</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="deleteall">确定</button>
+					        <button type="button" class="btn btn-defualt" data-dismiss="modal">取消</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+					
+					<div class="modal fade" id="myModal2" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="myModalLabel">操作</h5>
+					      </div>
+					      <div class="modal-body">
+					      	<div class="form-group">
+					      	     <div>书名 <input type="text" name="" class="form-control" palceholder="请输入书名" v-model="bookname1"></div>
+            					 <div>作者年龄 <input type="text" name="" class="form-control" palceholder="请输入年龄" v-model="authorage1"></div>
+            					 <div>作者姓名<input type="text" name="" class="form-control" palceholder="请输入姓名" v-model="name1"></div>
+					      	</div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateone()">确定</button>
+					        <button type="button" class="btn btn-defualt" data-dismiss="modal">取消</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+
+		
+    </div>
+	
+<script src="javascripts/jquery-3.2.1.min.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/vue.js"></script>
+<script src="javascripts/vue-resource.min.js"></script>		
+
+<style>
+#app{
+	overflow-x: hidden;
+}
+.search{
+	width:200px;
+	float:left;
+}
+.search-btn{
+	margin:0 20px;
+}
+.login{
+	width:100%;
+	height:60px;
+	line-height:60px;
+	text-align: center;
+	color:blue;
+	font-size:20px;
+}
+</style>
+<script>
+
+new Vue({
+	el:'#app',
+	data(){
+		return{
+			books:[{name:'',age:'',author:''}],
+			bookname1:'',
+			authorage1:'',
+			name1:'',
+			search:'',
+			ok:false,
+			bid:'', //用来传递修改的图书_id
+			username:'',
+			logins:'',
+			loginshow:false
+		}
+	},
+	mounted(){
+		this.getcookie();
+		this.init();
+	},
+	methods:{
+		init(){   
+			 this.$http.get('http://192.168.1.125:3001/api/books')
+			 .then(function(response){
+			 	if(response.data.length==0){
+			 		this.books=response.data;
+					this.ok=true;
+			 	}else{
+			 		this.books=response.data;
+			 		this.ok=false;
+			 	}
+			 })
+		},
+		getcookie(){
+			if(document.cookie){
+					//如果cookie存在，则显示登录人信息
+					this.username=JSON.parse(document.cookie).username;
+					this.logins=JSON.parse(document.cookie).login;
+					//权限判断，如果是管理员，则显示编辑按钮，如果不是，则不显示
+					if(this.logins=='admin'){
+						console.log(this.logins);
+						this.loginshow=true;
+					}else{
+						console.log(this.logins);
+						this.loginshow=false;
+					}
+			}else{
+				//如果不存在cookie则跳转到登录页面
+				 window.location.href='http://192.168.1.125:3001/static/login.html';
+			}
+			
+		},
+		getupdate(book){
+			this.$http.get('http://192.168.1.125:3001/api/books/'+book._id)
+			 .then(function(response){
+					 this.bookname1=response.data.name;
+					 this.authorage1=response.data.age;
+					 this.name1=response.data.author;
+					 this.bid=response.data._id;
+			 })
+		},
+		sub1(){
+			//提交商品，年龄一定要输入数字
+			if(this.authorage1==''){
+				this.authorage1='0';
+			}
+			this.$http.post('http://192.168.1.125:3001/api/books',{name:this.bookname1,age:this.authorage1,author:this.name1}
+					)
+				.then(function(response){
+					this.init();
+					 this.bookname1='';
+					 this.authorage1='';
+					 this.name1='';
+					 this.bid='';
+				})
+		},
+		deleteall(){
+			//删除全部商品
+			this.$http.delete('http://192.168.1.125:3001/api/books/')
+			 .then(function(response){
+			 		this.init();
+			 })
+		},
+		deleteOne(book){	
+			//删除单个商品	
+			 this.$http.delete('http://192.168.1.125:3001/api/books/'+book._id)
+			 .then(function(response){
+					this.init();
+			 })
+		},
+		updateone(){
+			//修改单个商品信息
+			   this.$http.put('http://192.168.1.125:3001/api/books/'+this.bid,{name:this.bookname1,age:this.authorage1,author:this.name1})
+			     .then(function(response){
+				  	this.init();	
+				  	 this.bookname1='';
+					 this.authorage1='';
+					 this.name1='';
+					 this.bid='';	    
+				  	 })
+		},
+		sear(){
+			//搜索单个商品
+			if(this.search==''){
+					this.init();
+			}else{
+					this.$http.get('http://192.168.1.125:3001/api/books/'+this.search)
+					.then(function(response){
+					 this.books=[response.data];
+			 		})
+			}
+		}
+	}
+})
+</script>
+</body>
+</html>
