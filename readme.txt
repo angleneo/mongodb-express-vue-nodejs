@@ -5,7 +5,7 @@ ps：现阶段前端数据耦合度高，页面中暴露接口地址，后期会
 1.cd到vue目录下  npm install
 2.删除db文件夹内所有数据
 3.连接本地mongodb数据库  如（mongod --dbpath c:\user\administor\desktop\mongodb-express-vue-nodejs\db --port=27011)  指定端口为27011
-4.更改vue/public 下login.html和index.html中所有请求接口中的ip 替换为为本地的ip  端口号为3001.如 http://192.168.1.163 改为本地ip，后面跟:3001
+4.更改vue/public 下login.html和index.html中所有请求接口中的ip 替换为localhost  端口号为3001.  如:http://localhost:3001/static/login.html
 5.cd到vue 文件夹  输入npm start
 6.访问localhost:3001/static/login.html 
 管理员账号：lyy  密码：222222
