@@ -101,7 +101,7 @@
 					      <div class="modal-header">
 					        <h5 class="modal-title" id="myModalLabel">操作</h5>
 					      </div>
-					      <div class="modal-body">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                					      <div class="modal-body">
 					      	<div class="form-group">
 					      	     <div>书名 <input type="text" name="" class="form-control" palceholder="请输入书名" v-model="bookname1"></div>
             					 <div>作者年龄 <input type="text" name="" class="form-control" palceholder="请输入年龄" v-model="authorage1"></div>
@@ -124,7 +124,7 @@
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/vue.js"></script>
 <script src="javascripts/vue-resource.min.js"></script>		
-
+                                                                                                                                                                   
 <style>
 #app{
 	overflow-x: hidden;
@@ -170,7 +170,7 @@ new Vue({
 	},
 	methods:{
 		init(){   
-			 this.$http.get('http://192.168.1.125:3001/api/books')
+			 this.$http.get('http://localhost:3001/api/books')
 			 .then(function(response){
 			 	if(response.data.length==0){
 			 		this.books=response.data;
@@ -196,12 +196,12 @@ new Vue({
 					}
 			}else{
 				//如果不存在cookie则跳转到登录页面
-				 window.location.href='http://192.168.1.125:3001/static/login.html';
+				 window.location.href='http://localhost:3001/static/login.html';
 			}
 			
 		},
 		getupdate(book){
-			this.$http.get('http://192.168.1.125:3001/api/books/'+book._id)
+			this.$http.get('http://localhost:3001/api/books/'+book._id)
 			 .then(function(response){
 					 this.bookname1=response.data.name;
 					 this.authorage1=response.data.age;
@@ -214,7 +214,7 @@ new Vue({
 			if(this.authorage1==''){
 				this.authorage1='0';
 			}
-			this.$http.post('http://192.168.1.125:3001/api/books',{name:this.bookname1,age:this.authorage1,author:this.name1}
+			this.$http.post('http://localhost:3001/api/books',{name:this.bookname1,age:this.authorage1,author:this.name1}
 					)
 				.then(function(response){
 					this.init();
@@ -226,21 +226,21 @@ new Vue({
 		},
 		deleteall(){
 			//删除全部商品
-			this.$http.delete('http://192.168.1.125:3001/api/books/')
+			this.$http.delete('http://localhost:3001/api/books/')
 			 .then(function(response){
 			 		this.init();
 			 })
 		},
 		deleteOne(book){	
 			//删除单个商品	
-			 this.$http.delete('http://192.168.1.125:3001/api/books/'+book._id)
+			 this.$http.delete('http://localhost:3001/api/books/'+book._id)
 			 .then(function(response){
 					this.init();
 			 })
 		},
 		updateone(){
 			//修改单个商品信息
-			   this.$http.put('http://192.168.1.125:3001/api/books/'+this.bid,{name:this.bookname1,age:this.authorage1,author:this.name1})
+			   this.$http.put('http://localhost:3001/api/books/'+this.bid,{name:this.bookname1,age:this.authorage1,author:this.name1})
 			     .then(function(response){
 				  	this.init();	
 				  	 this.bookname1='';
@@ -254,7 +254,7 @@ new Vue({
 			if(this.search==''){
 					this.init();
 			}else{
-					this.$http.get('http://192.168.1.125:3001/api/books/'+this.search)
+					this.$http.get('http://localhost:3001/api/books/'+this.search)
 					.then(function(response){
 					 this.books=[response.data];
 			 		})
@@ -265,7 +265,7 @@ new Vue({
 			if(this.searchName==''){
 					this.init();
 			}else{
-					this.$http.post('http://192.168.1.125:3001/api/books/bookname',{name:this.searchName})
+					this.$http.post('http://localhost:3001/api/books/bookname',{name:this.searchName})
 					.then(function(response){					 	
 					 	this.books=[response.data.booklist];
 			 		})

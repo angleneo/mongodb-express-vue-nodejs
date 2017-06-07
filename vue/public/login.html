@@ -71,14 +71,14 @@ new Vue({
 	},
 	methods:{
 		sign(){
-			this.$http.post('http://192.168.1.125:3001/api/login',{username:this.username1,password:this.password1})
+			this.$http.post('http://http://localhost:3001/api/login',{username:this.username1,password:this.password1})
 			.then(function(response){
 				this.message1=response.data.message;
 				this.login=response.data.userInfo.login;
 				this.username1=response.data.userInfo.username;
 				 if(response.data.code==3){
 				 document.cookie=JSON.stringify(response.data.userInfo);
-				 window.location.href='http://192.168.1.125:3001/static/index.html';
+				 window.location.href='http://localhost:3001/static/index.html';
 				}
 			})
 		}
